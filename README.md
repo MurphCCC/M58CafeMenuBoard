@@ -11,3 +11,11 @@ This is my attempt to document all of the moving pieces involved in our Digital 
 - A collection of scripts to better manage content and display.
 
 This repository includes all of the custom configuration files needed for everything to work, as well as all of the scripts that are being used to manage content and the Raspberry Pi/TV.
+
+# The following commands can be used to control the TV via CEC
+
+# Turn TV on
+echo 'on 0' | cec-client -s
+
+# Turn TV off
+echo 'standby 0' | cec-client -s
