@@ -3,28 +3,28 @@
 #!/bin/bash
 socket=/tmp/uzbl_socket_*
 blackimage=$( hexdump blank.png | wc | awk '{print$1}')
+url=http://m58cafe.calvarychatt.com/index.php
+DISPLAY=:0
 
 echo "Turning off Power Save"
 
-xset s off -display :0
-xset -dpms -display :0
-xset s noblank -display :0
+xset s off
+xset -dpms
+xset s noblank
 
-killall uzbl-core & sleep 2s
+killall uzbl-core
 killall breakfast.sh
-rm /tmp/uzbl_socket_* & sleep 2s
+rm /tmp/uzbl_socket_*
 
-/usr/bin/uzbl -c /home/pi/uzbl.conf -u localhost/blank.html --display=:0 & sleep 2s
+/usr/bin/uzbl -c /home/pi/uzbl.conf -u $url/14-2
 
 while :
 do
-        echo uri localhost/lunch.html | socat - unix-connect:`echo $socket`;
-        DISPLAY=:0 XAUTHORITY=/var/run/lightdm/root/$DISPLAY xwd -root > /tmp/screenshot.xwd;
-        sudo convert /tmp/screenshot.xwd /var/www/html/screenshot.png;
+        echo uri $url/14-2 | socat - unix-connect:`echo $socket`
+        sudo scrot temp.jpg
         sleep 15
 
-        echo uri localhost/specials.html | socat - unix-connect:`echo $socket`;
-        DISPLAY=:0 XAUTHORITY=/var/run/lightdm/root/$DISPLAY xwd -root > /tmp/screenshot.xwd;
-        sudo convert /tmp/screenshot.xwd /var/www/html/screenshot.png;
+        echo uri $url/featured-specials | socat - unix-connect:`echo $socket`
+        sudo scrot temp.jpg
         sleep 15
 done
