@@ -26,3 +26,8 @@ echo 'standby 0' | cec-client -s
   DISPLAY=:0 sudo scrot screenshot.jpg
   
 The scrot utility is used for taking screenshots and the above command is fairly simple.  I was previously using a more complex command that I found in another Raspberry Pi Kiosk repo, but in the interest of trying to make things run smoother I came across this simple approach.  Note that I set the Display variable manually because I am often running this over SSH.
+
+
+## 06/14/16
+Added a section for crontab entries found in cron.txt
+
