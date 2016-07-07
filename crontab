@@ -1,0 +1,16 @@
+#Start lunch slideshow at 10:45 tuesday-saturday and sunday.
+# On saturday we start the slideshow but we wont turn the tv on till 3pm.
+45 10 * * 0,2,3,4,5,6 DISPLAY=:0 nohup feh -D 15 /home/pi/lunch/*.jpg >/dev/null 2>&1
+
+#Turn tv on at 6:15 tuesday-sunday but not on saturday
+15 6 * * 0,2,3,4,5 echo 'on 0' | cec-client -s
+
+#Turn the tv off at 2:30 tuesday-sunday but not saturday
+30 14 * * 0,2,3,4,5 echo 'standby 0' | cec-client -s
+
+#Turn tv on saturday at 3:00PM
+00 15 * * 6 echo 'on 0' | cec-client -s
+
+#Turn tv off Saturday after service, also turn the two lobby tv's off as well...
+30 20 * * 6 echo 'standby 0' | cec-client -s
+30 20 * * 6 curl http://192.168.10.204/off.php
