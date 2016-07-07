@@ -5,26 +5,26 @@ socket=/tmp/uzbl_socket_*
 blackimage=$( hexdump blank.png | wc | awk '{print$1}')
 url=http://m58cafe.calvarychatt.com/index.php
 DISPLAY=:0
+EXPORT $DISPLAY
 
 echo "Turning off Power Save"
 
-xset s off
-xset -dpms
-xset s noblank
+xset s off -display :0
+xset -dpms -display :0
+xset s noblank -display :0
 
-killall uzbl-core
-killall breakfast.sh
-rm /tmp/uzbl_socket_*
+killall weekday-breakfast.sh
+killall weekend-breakfash.sh
+killall feh
 
-/usr/bin/uzbl -c /home/pi/uzbl.conf -u $url/14-2
 
 while :
 do
         echo uri $url/14-2 | socat - unix-connect:`echo $socket`
-        sudo scrot temp.jpg
+	DISPLAY=:0 sudo scrot temp.jpg
         sleep 15
 
         echo uri $url/featured-specials | socat - unix-connect:`echo $socket`
-        sudo scrot temp.jpg
+        DISPLAY=:0 sudo scrot temp.jpg
         sleep 15
 done
