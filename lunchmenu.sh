@@ -1,3 +1,8 @@
+
+#  07/28/16 - This is the most current tested version of the lunch playlist script.  Currently we are using UZBL browser to load the 
+#  lunch/Dinner menu followed by the specials menu.  Currently for breakfast we are simply displaying a still slide using
+#  FEH.  This is placed into a cronjob.  We want to make sure that we kill any of these existing processes.  
+
 #!/bin/bash
 socket=/tmp/uzbl_socket_*
 blackimage=$( hexdump blank.png | wc | awk '{print$1}')
